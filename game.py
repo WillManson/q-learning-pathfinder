@@ -14,6 +14,9 @@ class Game:
                     print(self.style_map_detail(cell), end='')
             print()
 
+    def get_map_dimensions(self):
+        return (len(self.game_map), len(self.game_map[0]))
+
     def style_map_detail(self, detail):
         return {
             '0': '.',
