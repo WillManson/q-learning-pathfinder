@@ -33,6 +33,12 @@ class Game:
         print('No start position set')
         sys.exit(1)
 
+    def is_dead(self):
+        return self.game_map[self.get_y()][self.get_x()] == '0'
+
+    def has_won(self):
+        return self.game_map[self.get_y()][self.get_x()] in [ '3', '4', '5' ]
+
     def respawn(self):
         self.player_pos = self.find_start_position()
 
