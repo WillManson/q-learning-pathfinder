@@ -37,7 +37,7 @@ class Game:
         return self.game_map[self.get_y()][self.get_x()] == '0'
 
     def has_won(self):
-        return self.game_map[self.get_y()][self.get_x()] in [ '3', '4', '5' ]
+        return self.game_map[self.get_y()][self.get_x()] in [ '3' ]
 
     def respawn(self):
         self.player_pos = self.find_start_position()

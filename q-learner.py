@@ -33,9 +33,9 @@ class QLearner:
 
         reward = 0.0
         if response == 'dead':
-            reward = -1.0
+            reward = -25.0
         elif response == 'won':
-            reward = 5.0
+            reward = 100.0
 
         self.q[y][x][action_index] = self.q[y][x][action_index] + self.learning_rate * (reward + self.discount_factor * max(self.q[new_y][new_x]) - self.q[y][x][action_index])
         if response == 'dead' or response == 'won':
@@ -71,7 +71,7 @@ class QLearner:
 
 random.seed()
 available_actions = [ 'w', 'a', 's', 'd' ]
-game = Game(FileManager().load_map('medium_map'))
+game = Game(FileManager().load_map('hard_map'))
 learner = QLearner(game, available_actions)
 
 while True:
@@ -80,6 +80,8 @@ while True:
     print('m: Output map')
     print('t: Train')
     print('r: Respawn')
+    print('o: Output quantity data')
+    print('q: Quit')
     choice = input('Choose: ')
 
     if choice == 'm':
@@ -94,3 +96,7 @@ while True:
                 time.sleep(0.3)
     elif choice == 'r':
         learner.game.respawn()
+    elif choice == 'o':
+        print(learner.q)
+    elif choice == 'q':
+        break
