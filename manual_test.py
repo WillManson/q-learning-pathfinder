@@ -10,4 +10,8 @@ with open('maps/basic_map', 'r') as f:
                 board_to_load[y].append(cell)
 
 game = Game(board_to_load)
-game.display_map()
+
+while True:
+    game.display_map()
+    print('w/a/s/d: ', end='')
+    game.perform_action(input())

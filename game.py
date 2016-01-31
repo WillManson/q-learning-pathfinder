@@ -5,10 +5,13 @@ class Game:
         self.game_map = game_map
         self.player_pos = self.find_start_position()
 
-    def display_map(self):
-        for row in self.game_map:
-            for cell in row:
-                print(self.style_map_detail(cell), end='')
+    def display_map(self, show_player=True):
+        for y, row in enumerate(self.game_map):
+            for x, cell in enumerate(row):
+                if show_player and (y, x) == self.player_pos:
+                    print('X', end='')
+                else:
+                    print(self.style_map_detail(cell), end='')
             print()
 
     def style_map_detail(self, detail):
@@ -24,5 +27,26 @@ class Game:
             for x, cell in enumerate(row):
                 if cell == '2':
                     return (y, x)
-        print("No start position set")
+        print('No start position set')
         sys.exit(1)
+
+    def respawn(self):
+        self.player_pos = self.find_start_position()
+
+    def get_y(self):
+        return self.player_pos[0]
+
+    def get_x(self):
+        return self.player_pos[1]
+
+    def perform_action(self, action):
+        if action == 'w':
+            self.player_pos = (self.get_y() - 1, self.get_x())
+        elif action == 's':
+            self.player_pos = (self.get_y() + 1, self.get_x())
+        elif action == 'a':
+            self.player_pos = (self.get_y(), self.get_x() - 1)
+        elif action == 'd':
+            self.player_pos = (self.get_y(), self.get_x() + 1)
+        else:
+            print('Invalid action')
