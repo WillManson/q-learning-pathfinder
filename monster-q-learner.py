@@ -73,7 +73,7 @@ class QLearner:
 
 random.seed()
 available_actions = [ 'w', 'a', 's', 'd' ]
-game = Game(FileManager().load_map('arena'))
+game = Game(FileManager().load_map('arena2'))
 learner = QLearner(game, available_actions)
 
 while True:
