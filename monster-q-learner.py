@@ -5,7 +5,7 @@ from game import Game
 from file_manager import FileManager
 
 class QLearner:
-    def __init__(self, game, available_actions, discount_factor=0.99, learning_rate=0.9):
+    def __init__(self, game, available_actions, discount_factor=0.9, learning_rate=0.9):
         self.game = game
         self.available_actions = available_actions
         dimensions = self.game.get_map_dimensions()

@@ -70,15 +70,36 @@ class Game:
 
     def update_monster(self):
         if self.has_monster:
-            random_num = random.random()
-            if random_num < 0.25:
-                self.monster_pos = (self.monster_pos[0] + 1, self.monster_pos[1])
-            elif random_num < 0.50:
-                self.monster_pos = (self.monster_pos[0] - 1, self.monster_pos[1])
-            elif random_num < 0.75:
+            new_x = self.monster_pos[0]
+            new_y = self.monster_pos[1]
+            while True:
+                new_x = self.monster_pos[0]
+                new_y = self.monster_pos[1]
+                random_num = random.random()
+                if random_num < 0.25:
+                    new_x = new_x - 1
+                elif random_num < 0.50:
+                    new_x = new_x + 1
+                elif random_num < 0.75:
+                    new_y = new_y - 1
+                else:
+                    new_y = new_y + 1
+                if self.game_map[new_x][new_y] != '0':
+                    self.monster_pos = (new_x, new_y)
+                    break
+
+    def update_monster_smart(self):
+        if self.has_monster:
+            relative_x = self.player_pos[1] - self.monster_pos[1]
+            relative_y = self.player_pos[0] - self.monster_pos[0]
+            if relative_x > 0:
                 self.monster_pos = (self.monster_pos[0], self.monster_pos[1] + 1)
-            else:
+            elif relative_x < 0:
                 self.monster_pos = (self.monster_pos[0], self.monster_pos[1] - 1)
+            elif relative_y > 0:
+                self.monster_pos = (self.monster_pos[0] + 1, self.monster_pos[1])
+            elif relative_y < 0:
+                self.monster_pos = (self.monster_pos[0] - 1, self.monster_pos[1])
             if self.game_map[self.monster_pos[0]][self.monster_pos[1]] == '0':
                 self.respawn_monster()
 
